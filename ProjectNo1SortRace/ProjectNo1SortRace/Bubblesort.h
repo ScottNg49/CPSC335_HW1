@@ -12,18 +12,25 @@ class BubbleSort
 	    user_size,
 		step_count;
 
+
 public:
 
-	BubbleSort(int argv_array[], int n);
+	BubbleSort();
 	int step();
 	void swap(int i, int j);
 	void print();
+	void populate(int argv_array[], int n);
 };
 
-BubbleSort::BubbleSort(int argv_array[], int n)
+BubbleSort::BubbleSort()
+{
+};
+
+void BubbleSort::populate(int argv_array[], int n)
 {
 	// n is size of array
 	// passing argv into obj array
+
 	user_size = n;
 	step_count = 0;
 
