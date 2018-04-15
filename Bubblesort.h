@@ -78,7 +78,10 @@ int BubbleSort::step()
 	// move suffix[0] to end of prefix
 
 	if(suffix == prefix && suffix == (user_size - 1))
+	{
 		done = true;
+		return done;
+	}
 	
 	cout << "Compared suffix value " << user_array[suffix] << " with prefix value " << user_array[prefix] << '\n';
 	step_count++;
@@ -91,7 +94,7 @@ int BubbleSort::step()
 		//prefix++;
 	}
 
-	else if(user_array[suffix] < user_array[prefix] && (suffix - 1) == prefix && suffix <= user_size - 2)
+	if(user_array[suffix] < user_array[prefix] && (suffix - 1) == prefix && suffix <= user_size - 2)
 	{
 		// if suffix is not greater than any prefix
 		// move suffix to end of prefix
