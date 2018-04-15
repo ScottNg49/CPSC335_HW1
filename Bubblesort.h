@@ -52,10 +52,10 @@ void BubbleSort::populate(int argv_array[], int n)
 void BubbleSort::print()
 {
 	// prints the array
-	cout << endl << "# " << step_count << " BubbleSort: [";
+	cout << "# " << step_count << " BubbleSort: [";
 	for(int i = 0; i < user_size; i++)
 		cout << user_array[i] << ' ';
-	cout << "]";
+	cout << "]\n\n";
 };
 
 void BubbleSort::swap(int i, int j)
@@ -83,15 +83,14 @@ int BubbleSort::step()
 		return done;
 	}
 	
-	cout << "Compared suffix value " << user_array[suffix] << " with prefix value " << user_array[prefix] << '\n';
+	// step count incremenet for comparison
 	step_count++;
 
 	if(user_array[suffix] > user_array[prefix] && suffix <= user_size - 1)
 	{
 		cout << "Swapped values " << user_array[suffix] << " and " << user_array[prefix] << '\n';
 		swap(suffix, prefix);
-		//suffix++;
-		//prefix++;
+		print();
 	}
 
 	if(user_array[suffix] < user_array[prefix] && (suffix - 1) == prefix && suffix <= user_size - 2)
@@ -101,6 +100,7 @@ int BubbleSort::step()
 		// increment suffix and move prefix to 0
 		cout << "Moved " << user_array[suffix] << " to the back of prefix\n";
 		step_count++;
+		print();
 		suffix++;
 		prefix = 0;
 	}
