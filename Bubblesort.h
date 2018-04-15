@@ -8,13 +8,17 @@ const int MAXSIZE = 12;
 
 class BubbleSort
 {
-	int user_array[MAXSIZE],
-	    user_size,
-		step_count;
+	int  user_array[MAXSIZE],
+	     user_size,
+		 step_count,
+		 prefix,
+		 suffix;
+	bool done;
 
 public:
 
 	BubbleSort();
+	bool is_done();
 	int step();
 	void swap(int i, int j);
 	void print();
@@ -23,6 +27,14 @@ public:
 
 BubbleSort::BubbleSort()
 {
+	prefix = 0;
+	suffix = 1;
+	done = 0;
+};
+
+bool BubbleSort::is_done()
+{
+	return done;
 };
 
 void BubbleSort::populate(int argv_array[], int n)
@@ -54,22 +66,51 @@ void BubbleSort::swap(int i, int j)
 	int temp = user_array[i];
 	user_array[i] = user_array[j];
 	user_array[j] = temp;
-	print();
+	step_count++;
 };
 
 
 int BubbleSort::step()
 {
-	// sort function processed with 2 for loops
+	// sorted prefix and unsorted suffix
+	// if swap increment both prefix and suffix and continue
+	// if prefix = suffix, suffix[0] is less than all prefix
+	// move suffix[0] to end of prefix
 
-	for(int i = 0; i < user_size - 1; i++)
-		for(int j = 0; j < user_size - i - 1; j++)
-		{
-			step_count++;
-			if (user_array[j] > user_array[j + 1])
-				swap(j, j + 1);
-		}
-	return 0;
+	if(suffix == prefix && suffix == (user_size - 1))
+		done = true;
+	
+	cout << "Compared suffix value " << user_array[suffix] << " with prefix value " << user_array[prefix] << '\n';
+	step_count++;
+
+	if(user_array[suffix] > user_array[prefix] && suffix <= user_size - 1)
+	{
+		cout << "Swapped values " << user_array[suffix] << " and " << user_array[prefix] << '\n';
+		swap(suffix, prefix);
+		//suffix++;
+		//prefix++;
+	}
+
+	else if(user_array[suffix] < user_array[prefix] && (suffix - 1) == prefix && suffix <= user_size - 2)
+	{
+		// if suffix is not greater than any prefix
+		// move suffix to end of prefix
+		// increment suffix and move prefix to 0
+		cout << "Moved " << user_array[suffix] << " to the back of prefix\n";
+		step_count++;
+		suffix++;
+		prefix = 0;
+	}
+
+	else if(user_array[suffix] <= user_array[prefix] && prefix < suffix)
+	{
+		// if suffix is not greater than current prefix
+		// move prefix up, this assumes prefix < suffix pointer
+		prefix++;
+	};
+	
+	// if done is true then return true
+	// default is false
+	// done represents one pass
+	return done;
 };
-
-// bubblesort.step()
