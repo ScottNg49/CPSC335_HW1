@@ -103,3 +103,12 @@ int main() {
 				print(BS.get_array(), BS.get_step_count(), BS.get_user_size());
 		};
 };*/
+
+/*
+void RaceMgr::print(int *argv_array, int step_count, int array_size)
+{
+	cout << "# " << step_count << " BubbleSort: [";
+	for(int i = 0; i < array_size; i++)
+		cout << argv_array[i] << ' ';
+	cout << "]\n\n";
+};*/
