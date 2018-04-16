@@ -12,16 +12,19 @@ class BubbleSort
 	     user_size,
 		 step_count,
 		 prefix,
-		 suffix;
-	bool done;
+		 suffix,
+	     state;
 
 public:
 
 	BubbleSort();
-	bool is_done();
+	int get_state();
 	int step();
+	int &get_array();
+	int get_step_count();
+	int get_user_size();
+
 	void swap(int i, int j);
-	void print();
 	void populate(int argv_array[], int n);
 };
 
@@ -29,12 +32,15 @@ BubbleSort::BubbleSort()
 {
 	prefix = 0;
 	suffix = 1;
-	done = 0;
+	state = 0;
 };
 
-bool BubbleSort::is_done()
+int BubbleSort::get_state()
 {
-	return done;
+	// 0 = not done
+	// 1 = done
+	// 2 = value moved
+	return state;
 };
 
 void BubbleSort::populate(int argv_array[], int n)
@@ -49,13 +55,20 @@ void BubbleSort::populate(int argv_array[], int n)
 		user_array[i] = argv_array[i];
 };
 
-void BubbleSort::print()
+int &BubbleSort::get_array()
 {
-	// prints the array
-	cout << "# " << step_count << " BubbleSort: [";
-	for(int i = 0; i < user_size; i++)
-		cout << user_array[i] << ' ';
-	cout << "]\n\n";
+	int *temp = user_array;
+	return *temp;
+};
+
+int BubbleSort::get_user_size()
+{
+	return user_size;
+};
+
+int BubbleSort::get_step_count()
+{
+	return step_count;
 };
 
 void BubbleSort::swap(int i, int j)
@@ -67,8 +80,8 @@ void BubbleSort::swap(int i, int j)
 	user_array[i] = user_array[j];
 	user_array[j] = temp;
 	step_count++;
+	state = 2;
 };
-
 
 int BubbleSort::step()
 {
@@ -79,9 +92,9 @@ int BubbleSort::step()
 
 	if(suffix == prefix && suffix == (user_size - 1))
 	{
-		done = true;
-		return done;
-	}
+		state = 1;
+		return state;
+	};
 	
 	// step count incremenet for comparison
 	step_count++;
@@ -90,7 +103,7 @@ int BubbleSort::step()
 	{
 		cout << "Swapped values " << user_array[suffix] << " and " << user_array[prefix] << '\n';
 		swap(suffix, prefix);
-		print();
+		state = 2;
 	}
 
 	if(user_array[suffix] < user_array[prefix] && (suffix - 1) == prefix && suffix <= user_size - 2)
@@ -100,7 +113,6 @@ int BubbleSort::step()
 		// increment suffix and move prefix to 0
 		cout << "Moved " << user_array[suffix] << " to the back of prefix\n";
 		step_count++;
-		print();
 		suffix++;
 		prefix = 0;
 	}
@@ -115,5 +127,14 @@ int BubbleSort::step()
 	// if done is true then return true
 	// default is false
 	// done represents one pass
-	return done;
+	return state;
 };
+
+/*void BubbleSort::print()
+{
+	// prints the array
+	cout << "# " << step_count << " BubbleSort: [";
+	for(int i = 0; i < user_size; i++)
+		cout << user_array[i] << ' ';
+	cout << "]\n\n";
+};*/
