@@ -20,7 +20,7 @@ public:
 	BubbleSort();
 	int get_state();
 	int step();
-	int &get_array();
+	int (&get_array())[MAXSIZE];
 	int get_step_count();
 	int get_user_size();
 
@@ -55,10 +55,9 @@ void BubbleSort::populate(int argv_array[], int n)
 		user_array[i] = argv_array[i];
 };
 
-int &BubbleSort::get_array()
+int (&BubbleSort::get_array())[MAXSIZE]
 {
-	int *temp = user_array;
-	return *temp;
+	return user_array;
 };
 
 int BubbleSort::get_user_size()
