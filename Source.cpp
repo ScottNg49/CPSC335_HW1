@@ -92,3 +92,14 @@ int main() {
 	system("pause");
 	return 0;
 }
+
+/*void RaceMgr::run()
+{
+	while(BS.get_state() != 1)
+		if(BS.get_state() != 1)
+		{
+			BS.step();
+			if(BS.get_state() == 2)
+				print(BS.get_array(), BS.get_step_count(), BS.get_user_size());
+		};
+};*/
